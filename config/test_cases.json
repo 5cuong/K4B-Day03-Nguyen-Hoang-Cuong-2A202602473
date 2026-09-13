@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Quỹ dự phòng tài chính cá nhân là gì và nên được xây dựng như thế nào?",
+    "expected_behavior": "Agent trả lời kiến thức tài chính chung trực tiếp, không gọi Tool vì không cần dữ liệu cá nhân thời gian thực.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tra cứu tình hình tài chính hiện tại của khách hàng KH001.",
+    "expected_behavior": "Agent gọi financial_profile_query với customer_id=KH001, nhận Observation SUCCESS và chỉ trả lời dựa trên dữ liệu Tool.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "financial_action",
+    "question": "Hãy tạo kế hoạch tài chính cho khách hàng KH002 với mục tiêu xây dựng quỹ dự phòng 6 tháng chi tiêu, đề xuất tiết kiệm 5.000.000 đồng mỗi tháng.",
+    "expected_behavior": "Agent gọi create_financial_plan với đúng customer_id, goal, monthly_saving_target và recommendation; sau Observation SUCCESS thì xác nhận kế hoạch.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Hãy kiểm tra tình hình tài chính của KH001, sau đó dựa trên thu nhập, chi tiêu và nghĩa vụ trả nợ hiện tại để xây dựng kế hoạch giúp khách hàng tiến tới mục tiêu mua nhà sau 5 năm.",
+    "expected_behavior": "Agent thực hiện ít nhất 2 Tool Actions: financial_profile_query(KH001) -> đọc Observation và xác định dòng tiền khả dụng -> create_financial_plan với kế hoạch phù hợp -> Final Answer.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy tra cứu và tư vấn tình hình tài chính cho khách hàng KH999.",
+    "expected_behavior": "Agent gọi financial_profile_query, nhận NOT_FOUND và phản hồi rõ không tìm thấy khách hàng, không tự bịa dữ liệu hay khuyến nghị cá nhân hóa.",
+    "complexity": "Medium"
+  }
+]
